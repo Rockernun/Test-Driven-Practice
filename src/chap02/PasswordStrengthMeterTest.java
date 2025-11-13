@@ -26,6 +26,13 @@ public class PasswordStrengthMeterTest {
         assertStrength("abcd!@EF", PasswordStrength.NORMAL);
     }
 
+    // 암호가 입력되지 않는 경우, 암호 강도: INVALID
+    @Test
+    void nullInput_Then_Invalid() {
+        assertStrength(null, PasswordStrength.INVALID);
+        assertStrength("", PasswordStrength.INVALID);
+    }
+
     private void assertStrength(String password, PasswordStrength strength) {
         PasswordStrength result = meter.meter(password);
         assertEquals(strength, result);
