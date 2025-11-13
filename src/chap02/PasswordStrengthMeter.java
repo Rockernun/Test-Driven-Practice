@@ -7,6 +7,10 @@ public class PasswordStrengthMeter {
             return PasswordStrength.NORMAL;
         }
 
+        if (!password.contains("[0-9]")) {
+            return PasswordStrength.NORMAL;
+        }
+
         return PasswordStrength.STRONG;
     }
 }
