@@ -8,15 +8,23 @@ public class PasswordStrengthMeter {
             return PasswordStrength.INVALID;
         }
 
-        if (password.length() < 8) {
+        boolean lengthEnough = password.length() >= 8;
+        boolean containsNumber = password.matches(".*\\d.*");
+        boolean containsUpperCase = password.matches(".*[A-Z].*");
+
+        if (lengthEnough && !containsNumber && !containsUpperCase) {
+            return PasswordStrength.WEAK;
+        }
+
+        if (!lengthEnough) {
             return PasswordStrength.NORMAL;
         }
 
-        if (!password.matches(".*\\d.*")) {
+        if (!containsNumber) {
             return PasswordStrength.NORMAL;
         }
 
-        if (!password.matches(".*[A-Z].*")) {
+        if (!containsUpperCase) {
             return PasswordStrength.NORMAL;
         }
 
