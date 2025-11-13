@@ -32,6 +32,12 @@ public class PasswordStrengthMeterTest {
         assertStrength("abcd1234", PasswordStrength.NORMAL);
     }
 
+    // 길이 기준만 충족한 경우, 암호 강도: Weak
+    @Test
+    void meetsOnlyLengthCriteria_Then_Weak() {
+        assertStrength("!@#$%^&*", PasswordStrength.WEAK);
+    }
+
     // 암호가 입력되지 않는 경우, 암호 강도: INVALID
     @Test
     void nullInput_Then_Invalid() {
