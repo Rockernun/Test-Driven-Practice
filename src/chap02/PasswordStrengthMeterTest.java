@@ -50,6 +50,12 @@ public class PasswordStrengthMeterTest {
         assertStrength("ABCD", PasswordStrength.WEAK);
     }
 
+    // 아무 기준도 충족하지 않는 경우, 암호 강도: Weak
+    @Test
+    void meetsNoCriteria_Then_Weak() {
+        assertStrength("abc", PasswordStrength.WEAK);
+    }
+
     // 암호가 입력되지 않는 경우, 암호 강도: INVALID
     @Test
     void nullInput_Then_Invalid() {

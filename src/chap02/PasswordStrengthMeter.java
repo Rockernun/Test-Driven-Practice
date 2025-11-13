@@ -22,7 +22,7 @@ public class PasswordStrengthMeter {
             criteriaMatchCount++;
         }
 
-        if (criteriaMatchCount == 1) {
+        if (criteriaMatchCount <= 1) {
             return PasswordStrength.WEAK;
         }
 
