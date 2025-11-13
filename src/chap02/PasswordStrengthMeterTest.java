@@ -26,6 +26,12 @@ public class PasswordStrengthMeterTest {
         assertStrength("abcd!@EF", PasswordStrength.NORMAL);
     }
 
+    // 대문자를 포함하는 기준만 충족하지 않는 경우, 암호 강도: Normal
+    @Test
+    void meetsOtherCriteria_except_for_Uppercase_Then_Normal() {
+        assertStrength("abcd1234", PasswordStrength.NORMAL);
+    }
+
     // 암호가 입력되지 않는 경우, 암호 강도: INVALID
     @Test
     void nullInput_Then_Invalid() {

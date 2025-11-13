@@ -12,8 +12,11 @@ public class PasswordStrengthMeter {
             return PasswordStrength.NORMAL;
         }
 
-        String regex = ".*\\d.*";
-        if (!password.matches(regex)) {
+        if (!password.matches(".*\\d.*")) {
+            return PasswordStrength.NORMAL;
+        }
+
+        if (!password.matches(".*[A-Z].*")) {
             return PasswordStrength.NORMAL;
         }
 
