@@ -38,6 +38,18 @@ public class PasswordStrengthMeterTest {
         assertStrength("!@#$%^&*", PasswordStrength.WEAK);
     }
 
+    // 숫자를 포함하는 기준만 충족한 경우, 암호 강도: Weak
+    @Test
+    void meetsOnlyNumberCriteria_Then_Weak() {
+        assertStrength("1234", PasswordStrength.WEAK);
+    }
+
+    // 대문자를 포함하는 기준만 충족한 경우, 암호 강도: Weak
+    @Test
+    void meetsOnlyUppercaseCriteria_Then_Weak() {
+        assertStrength("ABCD", PasswordStrength.WEAK);
+    }
+
     // 암호가 입력되지 않는 경우, 암호 강도: INVALID
     @Test
     void nullInput_Then_Invalid() {
