@@ -21,4 +21,12 @@ public class PasswordStrengthMeterTest {
         PasswordStrength result = meter.meter("ab12!@C");
         assertEquals(PasswordStrength.NORMAL, result);
     }
+
+    // 숫자를 포함하는 기준만 충족하지 않는 경우, 암호 강도: Normal
+    @Test
+    void meetsOtherCriteria_except_for_number_Then_Normal() {
+        PasswordStrengthMeter meter = new PasswordStrengthMeter();
+        PasswordStrength result = meter.meter("abcd!@EF");
+        assertEquals(PasswordStrength.NORMAL, result);
+    }
 }
