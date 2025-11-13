@@ -13,4 +13,12 @@ public class PasswordStrengthMeterTest {
         PasswordStrength result = meter.meter("ab12!@AB");
         assertEquals(PasswordStrength.STRONG, result);
     }
+
+    // 길이 기준만 충족하지 않는 경우, 암호 강도: Normal
+    @Test
+    void meetsOtherCriteria_except_for_Length_Then_Normal() {
+        PasswordStrengthMeter meter = new PasswordStrengthMeter();
+        PasswordStrength result = meter.meter("ab12!@C");
+        assertEquals(PasswordStrength.NORMAL, result);
+    }
 }
