@@ -3,6 +3,6 @@ package chap02;
 public class PasswordStrengthMeter {
 
     public PasswordStrength meter(String password) {
-        return null;
+        return PasswordStrength.STRONG;
     }
 }
