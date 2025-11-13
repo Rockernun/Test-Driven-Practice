@@ -8,6 +8,18 @@ public class PasswordStrengthMeter {
             return PasswordStrength.INVALID;
         }
 
+        if (getMetCriteriaCounts(password) <= 1) {
+            return PasswordStrength.WEAK;
+        }
+
+        if (getMetCriteriaCounts(password) == 2) {
+            return PasswordStrength.NORMAL;
+        }
+
+        return PasswordStrength.STRONG;
+    }
+
+    private int getMetCriteriaCounts(String password) {
         int criteriaMatchCount = 0;
 
         if (password.length() >= 8) {
@@ -22,14 +34,6 @@ public class PasswordStrengthMeter {
             criteriaMatchCount++;
         }
 
-        if (criteriaMatchCount <= 1) {
-            return PasswordStrength.WEAK;
-        }
-
-        if (criteriaMatchCount == 2) {
-            return PasswordStrength.NORMAL;
-        }
-
-        return PasswordStrength.STRONG;
+        return criteriaMatchCount;
     }
 }
