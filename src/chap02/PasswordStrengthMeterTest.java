@@ -11,21 +11,23 @@ public class PasswordStrengthMeterTest {
     // 모든 기준을 충족할 경우, 암호 강도: Strong
     @Test
     void meetsAllCriteria_Then_Strong() {
-        PasswordStrength result = meter.meter("ab12!@AB");
-        assertEquals(PasswordStrength.STRONG, result);
+        assertStrength("ab12!@AB", PasswordStrength.STRONG);
     }
 
     // 길이 기준만 충족하지 않는 경우, 암호 강도: Normal
     @Test
     void meetsOtherCriteria_except_for_Length_Then_Normal() {
-        PasswordStrength result = meter.meter("ab12!@C");
-        assertEquals(PasswordStrength.NORMAL, result);
+        assertStrength("ab12!@C", PasswordStrength.NORMAL);
     }
 
     // 숫자를 포함하는 기준만 충족하지 않는 경우, 암호 강도: Normal
     @Test
     void meetsOtherCriteria_except_for_number_Then_Normal() {
-        PasswordStrength result = meter.meter("abcd!@EF");
-        assertEquals(PasswordStrength.NORMAL, result);
+        assertStrength("abcd!@EF", PasswordStrength.NORMAL);
+    }
+
+    private void assertStrength(String password, PasswordStrength strength) {
+        PasswordStrength result = meter.meter(password);
+        assertEquals(strength, result);
     }
 }
