@@ -7,7 +7,8 @@ public class PasswordStrengthMeter {
             return PasswordStrength.NORMAL;
         }
 
-        if (!password.contains("[0-9]")) {
+        String regex = ".*\\d.*";
+        if (!password.matches(regex)) {
             return PasswordStrength.NORMAL;
         }
 
