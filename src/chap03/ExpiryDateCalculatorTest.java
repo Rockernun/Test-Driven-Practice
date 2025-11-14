@@ -28,4 +28,10 @@ public class ExpiryDateCalculatorTest {
 
         assertEquals(expectedExpiryDate, realExpiryDate);
     }
+
+    @Test
+    void 납부일과_한달_뒤_일자가_같지_않다() {
+        assertExpiryDate(LocalDate.of(2025, 2, 28), LocalDate.of(2025, 1, 31), 10_000);
+        assertExpiryDate(LocalDate.of(2025, 6, 30), LocalDate.of(2025, 5, 31), 10_000);
+    }
 }
