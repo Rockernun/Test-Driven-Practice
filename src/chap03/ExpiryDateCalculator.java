@@ -7,7 +7,15 @@ public class ExpiryDateCalculator {
 
     public LocalDate calculateExpiryDate(PayData payData) {
 
-        int addedMonths = payData.getPayAmount() / 10_000;
+        int addedMonths = 0;
+
+        if (payData.getPayAmount() != 100_000) {
+            addedMonths = payData.getPayAmount() / 10_000;
+        }
+
+        if (payData.getPayAmount() == 100_000) {
+            addedMonths = 12;
+        }
 
         if (payData.getFirstBillingDate() != null) {
             LocalDate candidateExp = adjustExpiryDateToFirstBillingOrEndOfMonth(payData, addedMonths);
