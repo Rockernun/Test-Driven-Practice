@@ -9,9 +9,14 @@ public class PayData {
 
     private PayData() {}
 
-    public PayData(LocalDate billingDate, int payAmount) {
+    public PayData(LocalDate firstBillingDate, LocalDate billingDate, int payAmount) {
+        this.billingDate = firstBillingDate;
         this.billingDate = billingDate;
         this.payAmount = payAmount;
+    }
+
+    public LocalDate getFirstBillingDate() {
+        return billingDate;
     }
 
     public LocalDate getBillingDate() {
@@ -28,6 +33,11 @@ public class PayData {
 
     public static class Builder {
         private PayData data = new PayData();
+
+        public Builder firstBillingDate(LocalDate firstBillingDate) {
+            data.billingDate = firstBillingDate;
+            return this;
+        }
 
         public Builder billingDate(LocalDate billingDate) {
             data.billingDate = billingDate;
