@@ -12,8 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * 2개월 이상 요금을 납부할 수 있다.
  * 10만 원을 납부하면 서비스를 1년동안 이용할 수 있다.
  */
-
-
 public class ExpiryDateCalculatorTest {
 
     @Test
@@ -59,6 +57,22 @@ public class ExpiryDateCalculatorTest {
                 .build();
 
         assertExpiryDate(payData, LocalDate.of(2025, 3, 31));
+
+        PayData payData2 = PayData.builder()
+                .firstBillingDate(LocalDate.of(2025, 1, 30))
+                .billingDate(LocalDate.of(2025, 2, 28))
+                .payAmount(10_000)
+                .build();
+
+        assertExpiryDate(payData2, LocalDate.of(2025, 3, 30));
+
+        PayData payData3 = PayData.builder()
+                .firstBillingDate(LocalDate.of(2025, 5, 31))
+                .billingDate(LocalDate.of(2025, 6, 30))
+                .payAmount(10_000)
+                .build();
+
+        assertExpiryDate(payData3, LocalDate.of(2025, 7, 31));
     }
 
     private static void assertExpiryDate(PayData payData, LocalDate expectedExpiryDate) {
