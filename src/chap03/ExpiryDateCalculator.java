@@ -1,22 +1,25 @@
 package chap03;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 
 public class ExpiryDateCalculator {
 
-    public LocalDate calculateExpiryDate(PayData paydata) {
+    public LocalDate calculateExpiryDate(PayData payData) {
 
-        int addedMonths = paydata.getPayAmount() / 10_000;
+        int addedMonths = payData.getPayAmount() / 10_000;
 
-        if (paydata.getFirstBillingDate() != null) {
-            LocalDate candidateExp = paydata.getBillingDate().plusMonths(addedMonths);
-            if (paydata.getFirstBillingDate().getDayOfMonth() != candidateExp.getDayOfMonth()) {
-                return candidateExp.withDayOfMonth(
-                        paydata.getFirstBillingDate().getDayOfMonth()
-                );
+        if (payData.getFirstBillingDate() != null) {
+            LocalDate candidateExp = payData.getBillingDate().plusMonths(addedMonths);
+            if (payData.getFirstBillingDate().getDayOfMonth() != candidateExp.getDayOfMonth()) {
+                if (YearMonth.from(candidateExp).lengthOfMonth() < payData.getFirstBillingDate().getDayOfMonth()) {
+                    return candidateExp.withDayOfMonth(YearMonth.from(candidateExp).lengthOfMonth());
+                }
+
+                return candidateExp.withDayOfMonth(payData.getFirstBillingDate().getDayOfMonth());
             }
         }
 
-        return paydata.getBillingDate().plusMonths(addedMonths);
+        return payData.getBillingDate().plusMonths(addedMonths);
     }
 }
