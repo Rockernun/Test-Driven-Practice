@@ -18,20 +18,42 @@ public class ExpiryDateCalculatorTest {
 
     @Test
     void 만원_납부하면_한달_뒤가_만료일이_된다() {
-        assertExpiryDate(LocalDate.of(2025, 12, 14), LocalDate.of(2025, 11, 14), 10_000);
-        assertExpiryDate(LocalDate.of(2025, 2, 14), LocalDate.of(2025, 1, 14), 10_000);
-    }
+        assertExpiryDate(
+                PayData.builder()
+                        .billingDate(LocalDate.of(2025, 11, 14))
+                        .payAmount(10_000)
+                        .build()
+                , LocalDate.of(2025, 12, 14));
 
-    private static void assertExpiryDate(LocalDate expectedExpiryDate, LocalDate billingDate, int payment) {
-        ExpiryDateCalculator calculator = new ExpiryDateCalculator();
-        LocalDate realExpiryDate = calculator.calculateExpiryDate(billingDate, payment);
-
-        assertEquals(expectedExpiryDate, realExpiryDate);
+        assertExpiryDate(
+                PayData.builder()
+                        .billingDate(LocalDate.of(2025, 1, 14))
+                        .payAmount(10_000)
+                        .build()
+                , LocalDate.of(2025, 2, 14));
     }
 
     @Test
     void 납부일과_한달_뒤_일자가_같지_않다() {
-        assertExpiryDate(LocalDate.of(2025, 2, 28), LocalDate.of(2025, 1, 31), 10_000);
-        assertExpiryDate(LocalDate.of(2025, 6, 30), LocalDate.of(2025, 5, 31), 10_000);
+        assertExpiryDate(
+                PayData.builder()
+                        .billingDate(LocalDate.of(2025, 1, 31))
+                        .payAmount(10_000)
+                        .build()
+                , LocalDate.of(2025, 2, 28));
+
+        assertExpiryDate(
+                PayData.builder()
+                        .billingDate(LocalDate.of(2025, 5, 31))
+                        .payAmount(10_000)
+                        .build()
+                , LocalDate.of(2025, 6, 30));
+    }
+
+    private static void assertExpiryDate(PayData payData, LocalDate expectedExpiryDate) {
+        ExpiryDateCalculator calculator = new ExpiryDateCalculator();
+        LocalDate realExpiryDate = calculator.calculateExpiryDate(payData);
+
+        assertEquals(expectedExpiryDate, realExpiryDate);
     }
 }
