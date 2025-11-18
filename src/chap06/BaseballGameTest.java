@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class BaseballGameTest {
 
@@ -32,5 +33,12 @@ public class BaseballGameTest {
         // 결과 확인 (then)
         assertEquals(0, score.strikes());
         assertEquals(0, score.balls());
+    }
+
+    @Test
+    void genGame_With_DuplicateNumber_Then_fail() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new BaseballGame("111");
+        });
     }
 }
