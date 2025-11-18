@@ -1,16 +1,21 @@
 package chap06;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BaseballGameTest {
 
+    private BaseballGame game;
+
+    @BeforeEach
+    void givenGame() {
+        game = new BaseballGame("456");
+    }
+
     @Test
     void exactMatch() {
-        // 정답이 456인 상황 (given)
-        BaseballGame game = new BaseballGame("456");
-
         // 실행 (when)
         Score score = game.guess("456");
 
@@ -21,11 +26,8 @@ public class BaseballGameTest {
 
     @Test
     void noMatch() {
-        // 정답이 123인 상황 (given)
-        BaseballGame game = new BaseballGame("123");
-
         // 실행 (when)
-        Score score = game.guess("456");
+        Score score = game.guess("123");
 
         // 결과 확인 (then)
         assertEquals(0, score.strikes());
